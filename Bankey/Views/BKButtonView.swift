@@ -34,9 +34,6 @@ class BKButtonView: UIButton {
             configuration?.imagePadding = 4
             configuration?.imagePlacement = .leading
         }
-        
-        
-        
     }
     
     private func configure() {

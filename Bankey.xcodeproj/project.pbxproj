@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		03CF26002C883A3E0012CD8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF25FF2C883A3E0012CD8A /* AppDelegate.swift */; };
 		03CF26022C883A3E0012CD8A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF26012C883A3E0012CD8A /* SceneDelegate.swift */; };
-		03CF26042C883A3E0012CD8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF26032C883A3E0012CD8A /* ViewController.swift */; };
+		03CF26042C883A3E0012CD8A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF26032C883A3E0012CD8A /* LoginViewController.swift */; };
 		03CF26092C883A3F0012CD8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03CF26082C883A3F0012CD8A /* Assets.xcassets */; };
 		03CF260C2C883A3F0012CD8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03CF260A2C883A3F0012CD8A /* LaunchScreen.storyboard */; };
 		03CF26392C8874580012CD8A /* BKTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF26382C8874580012CD8A /* BKTitleLabel.swift */; };
@@ -17,13 +17,14 @@
 		03CF263D2C89760A0012CD8A /* BKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF263C2C89760A0012CD8A /* BKTextField.swift */; };
 		03CF263F2C8979D80012CD8A /* BKLoginCredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF263E2C8979D80012CD8A /* BKLoginCredentialsView.swift */; };
 		03CF26412C8988DD0012CD8A /* BKButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF26402C8988DD0012CD8A /* BKButtonView.swift */; };
+		03FF52D82C94492200AEA4FB /* OnBoardingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FF52D72C94492200AEA4FB /* OnBoardingContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		03CF25FC2C883A3E0012CD8A /* Bankey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bankey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03CF25FF2C883A3E0012CD8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03CF26012C883A3E0012CD8A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		03CF26032C883A3E0012CD8A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		03CF26032C883A3E0012CD8A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		03CF26082C883A3F0012CD8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03CF260B2C883A3F0012CD8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		03CF260D2C883A3F0012CD8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -32,6 +33,7 @@
 		03CF263C2C89760A0012CD8A /* BKTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKTextField.swift; sourceTree = "<group>"; };
 		03CF263E2C8979D80012CD8A /* BKLoginCredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKLoginCredentialsView.swift; sourceTree = "<group>"; };
 		03CF26402C8988DD0012CD8A /* BKButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKButtonView.swift; sourceTree = "<group>"; };
+		03FF52D72C94492200AEA4FB /* OnBoardingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +47,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0398D5BC2C92B5D000EE24C6 /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				03FF52D72C94492200AEA4FB /* OnBoardingContainerViewController.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		0398D5BD2C92B5DD00EE24C6 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				03CF26032C883A3E0012CD8A /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		03CF25F32C883A3D0012CD8A = {
 			isa = PBXGroup;
 			children = (
@@ -64,22 +82,15 @@
 		03CF25FE2C883A3E0012CD8A /* Bankey */ = {
 			isa = PBXGroup;
 			children = (
+				0398D5BD2C92B5DD00EE24C6 /* Login */,
+				0398D5BC2C92B5D000EE24C6 /* OnBoarding */,
 				03CF26352C8874140012CD8A /* Views */,
 				03CF26342C886C300012CD8A /* Support */,
-				03CF26332C886C100012CD8A /* ViewControllers */,
 				03CF26082C883A3F0012CD8A /* Assets.xcassets */,
 				03CF260A2C883A3F0012CD8A /* LaunchScreen.storyboard */,
 				03CF260D2C883A3F0012CD8A /* Info.plist */,
 			);
 			path = Bankey;
-			sourceTree = "<group>";
-		};
-		03CF26332C886C100012CD8A /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				03CF26032C883A3E0012CD8A /* ViewController.swift */,
-			);
-			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		03CF26342C886C300012CD8A /* Support */ = {
@@ -177,8 +188,9 @@
 				03CF26412C8988DD0012CD8A /* BKButtonView.swift in Sources */,
 				03CF263F2C8979D80012CD8A /* BKLoginCredentialsView.swift in Sources */,
 				03CF26392C8874580012CD8A /* BKTitleLabel.swift in Sources */,
-				03CF26042C883A3E0012CD8A /* ViewController.swift in Sources */,
+				03CF26042C883A3E0012CD8A /* LoginViewController.swift in Sources */,
 				03CF263B2C88810B0012CD8A /* BKBodyLabel.swift in Sources */,
+				03FF52D82C94492200AEA4FB /* OnBoardingContainerViewController.swift in Sources */,
 				03CF26002C883A3E0012CD8A /* AppDelegate.swift in Sources */,
 				03CF26022C883A3E0012CD8A /* SceneDelegate.swift in Sources */,
 			);

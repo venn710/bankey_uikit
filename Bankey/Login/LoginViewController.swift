@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
     
     let bkTitleLabel = BKTitleLabel(title: "Bankey", color: .black)
     let bkBodyLabel = BKBodyLabel(body: "Your premium source for all banking things!", color: .black)
