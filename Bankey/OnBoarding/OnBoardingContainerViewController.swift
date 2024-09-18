@@ -13,7 +13,7 @@ import UIKit
  
  1. Container View Controller:
  Purpose: A container view controller's primary job is to organize and manage the display of multiple child view controllers within its view hierarchy. It doesn’t usually present its own content but rather controls how its child view controllers are displayed.
-
+ 
  Examples:
  
  UINavigationController: Manages a stack of view controllers and allows navigation through a push/pop interface.
@@ -43,72 +43,111 @@ import UIKit
  Hierarchy: In most cases, it is either embedded in a container view controller (e.g., in a navigation or tab bar controller) or presented directly.
  
  */
+
 class OnBoardingContainerViewController: UIViewController {
     
     let uiPageViewController: UIPageViewController = UIPageViewController(
         transitionStyle: .scroll,
-        navigationOrientation: .horizontal
+        navigationOrientation: .horizontal,
+        options: nil
     )
     
-    var pages: [UIViewController] = [VC1(), VC2(), VC3()]
-
-    var currentVC: UIViewController?
+    var pages: [UIViewController] = [
+        OnBoardingViewController(imageResource: .delorean, data: "Bankey is faster, easier to use and has a brand new look and feel that will make you feel like you are back in the 80s"),
+        OnBoardingViewController(imageResource: .world, data: "Move your money around the world quickly and securely."),
+        OnBoardingViewController(imageResource: .thumbs, data: "Learn more at www.bankey.com"),
+    ]
     
-
+    var currentVC: UIViewController? {
+        didSet {
+            changeOnBoardingStatus()
+        }
+    }
+    var closeButton = UIButton(configuration:.plain())
+    
+    var onBoardingStatusStackView = UIStackView()
+    var onBoardingStatusLeading = UIButton(configuration:.plain())
+    var onBoardingStatusTrailing = UIButton(configuration:.plain())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         addSubViews()
+        layoutSubViews()
     }
-
+    
     private func configure() {
         
-        currentVC = pages.first
         view.backgroundColor = .purple
+        navigationController?.navigationBar.isHidden = true
+        currentVC = pages.first
+        
+        closeButton.setTitle("close", for: .normal)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.addTarget(self, action: #selector(onBoardingFinished), for: .touchUpInside)
+        
+        onBoardingStatusLeading.translatesAutoresizingMaskIntoConstraints = false
+        onBoardingStatusTrailing.translatesAutoresizingMaskIntoConstraints = false
+        
+        onBoardingStatusLeading.addTarget(self, action: #selector(statusLeadingTapped), for: .touchUpInside)
+        onBoardingStatusTrailing.addTarget(self, action: #selector(statusTrailingTapped), for: .touchUpInside)
         
         // UIPageViewController
         uiPageViewController.dataSource = self
+        uiPageViewController.delegate = self
         uiPageViewController.setViewControllers([pages[0]], direction: .forward, animated: true, completion: nil)
         uiPageViewController.view.translatesAutoresizingMaskIntoConstraints = false
-
         
+        // onBoardingStatusStackView
+        onBoardingStatusStackView.axis = .horizontal
+        onBoardingStatusStackView.distribution = .equalSpacing
+        onBoardingStatusStackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     
     private func addSubViews() {
+        
+        view.addSubview(onBoardingStatusStackView)
+        view.addSubview(closeButton)
         
         // This method creates a parent-child relationship between the current view controller and the object in the childController parameter. This relationship is necessary when embedding the child view controller’s view into the current view controller’s content. If the new child view controller is already the child of a container view controller, it is removed from that container before being added
         addChild(uiPageViewController)
         view.addSubview(uiPageViewController.view)
         uiPageViewController.didMove(toParent: self)
         
+        view.bringSubviewToFront(closeButton)
+        view.bringSubviewToFront(onBoardingStatusStackView)
+        
+        onBoardingStatusStackView.addArrangedSubview(onBoardingStatusLeading)
+        onBoardingStatusStackView.addArrangedSubview(onBoardingStatusTrailing)
+    }
+    
+    private func layoutSubViews() {
         NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            
+            uiPageViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            uiPageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             uiPageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             uiPageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            uiPageViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            uiPageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
+            onBoardingStatusStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            onBoardingStatusStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            onBoardingStatusStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
 }
 
-extension OnBoardingContainerViewController: UIPageViewControllerDataSource {
+// MARK: - Delegation
+extension OnBoardingContainerViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = pages.firstIndex(of: viewController),
-              index > 0 else {
-            return nil
-        }
-        currentVC = pages[index-1]
-        return pages[index - 1]
+        getPreviousVC(before: viewController)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = pages.firstIndex(of: viewController),
-              index < pages.count - 1 else {
-            return nil
-        }
-        currentVC = pages[index + 1]
-        return pages[index + 1]
+        getNextVC(after: viewController)
     }
     
     
@@ -119,29 +158,89 @@ extension OnBoardingContainerViewController: UIPageViewControllerDataSource {
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         guard let currentVC,
-           let index = pages.firstIndex(of: currentVC) else {
+              let index = pages.firstIndex(of: currentVC) else {
             return 0
         }
         return index
     }
-
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if completed {
+            currentVC = pageViewController.viewControllers?.first
+        }
+    }
+    
 }
 
-
-class VC1: UIViewController {
-    override func viewDidLoad() {
-        view.backgroundColor = .red
+// MARK: - Utils
+extension OnBoardingContainerViewController {
+    
+    private var isFirstVC: Bool {
+        currentVC == pages.first
+    }
+    
+    private var isLastVC: Bool {
+        currentVC == pages.last
+    }
+    
+    func getNextVC(after viewController: UIViewController?) -> UIViewController? {
+        guard let viewController,
+              let index = pages.firstIndex(of: viewController),
+              index < pages.count - 1 else {
+            return nil
+        }
+        return pages[index + 1]
+    }
+    
+    func getPreviousVC(before viewController: UIViewController?) -> UIViewController? {
+        guard let viewController,
+              let index = pages.firstIndex(of: viewController),
+              index > 0 else {
+            return nil
+        }
+        return pages[index - 1]
+    }
+    
+    func moveToHome() {
+        let viewController = HomeViewController()
+        navigationController?.setViewControllers([viewController], animated: true)
+    }
+    
+    private func changeOnBoardingStatus() {
+        if isFirstVC {
+            onBoardingStatusLeading.setTitle("", for: .normal)
+            onBoardingStatusTrailing.setTitle("Next", for: .normal)
+        } else if isLastVC {
+            onBoardingStatusLeading.setTitle("Back", for: .normal)
+            onBoardingStatusTrailing.setTitle("Done", for: .normal)
+        } else {
+            onBoardingStatusLeading.setTitle("Back", for: .normal)
+            onBoardingStatusTrailing.setTitle("Next", for: .normal)
+        }
     }
 }
 
-class VC2: UIViewController {
-    override func viewDidLoad() {
-        view.backgroundColor = .orange
-    }
-}
 
-class VC3: UIViewController {
-    override func viewDidLoad() {
-        view.backgroundColor = .yellow
+// MARK: - Events
+extension OnBoardingContainerViewController {
+    @objc func onBoardingFinished() {
+        moveToHome()
+    }
+    
+    @objc func statusLeadingTapped() {
+        guard let previousVC = getPreviousVC(before: currentVC),
+              !isFirstVC else { return }
+        currentVC = previousVC
+        uiPageViewController.setViewControllers([previousVC], direction: .reverse, animated: true)
+    }
+    
+    @objc func statusTrailingTapped() {
+        if isLastVC {
+            moveToHome()
+        } else {
+            guard let nextVC = getNextVC(after: currentVC) else { return }
+            currentVC = nextVC
+            uiPageViewController.setViewControllers([nextVC], direction: .forward, animated: true)
+        }
     }
 }

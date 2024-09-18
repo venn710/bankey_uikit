@@ -54,11 +54,14 @@ class LoginViewController: UIViewController {
         bkLoginCredsView.closure = { [weak self] userName, password in
             guard let self = self else { return }
             guard let userName, let password else { return }
-            validateCreds(userName: userName, password: password)
+            if validateCreds(userName: userName, password: password) {
+                startUserOnBoarding()
+            }
+
         }
     }
     
-    private func validateCreds(userName: String, password: String) {
+    private func validateCreds(userName: String, password: String) -> Bool {
         if userName.isEmpty || password.isEmpty {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
@@ -70,6 +73,13 @@ class LoginViewController: UIViewController {
             bkLoginCredsView.buttonView.configuration?.showsActivityIndicator = true
             bkErrorLabel.isHidden = true
             bkErrorLabel.text = ""
+            return true
         }
+        return false
+    }
+    
+    private func startUserOnBoarding() {
+        let viewController = OnBoardingContainerViewController()
+        navigationController?.setViewControllers([viewController], animated: true)
     }
 }

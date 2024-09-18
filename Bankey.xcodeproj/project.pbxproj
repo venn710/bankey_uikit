@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03C605382C981716003EFF5F /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C605372C981716003EFF5F /* OnBoardingViewController.swift */; };
+		03C6A1262C9AA5C600CDCEB2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C6A1252C9AA5C600CDCEB2 /* HomeViewController.swift */; };
 		03CF26002C883A3E0012CD8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF25FF2C883A3E0012CD8A /* AppDelegate.swift */; };
 		03CF26022C883A3E0012CD8A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF26012C883A3E0012CD8A /* SceneDelegate.swift */; };
 		03CF26042C883A3E0012CD8A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CF26032C883A3E0012CD8A /* LoginViewController.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03C605372C981716003EFF5F /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		03C6A1252C9AA5C600CDCEB2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		03CF25FC2C883A3E0012CD8A /* Bankey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bankey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03CF25FF2C883A3E0012CD8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03CF26012C883A3E0012CD8A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				03FF52D72C94492200AEA4FB /* OnBoardingContainerViewController.swift */,
+				03C605372C981716003EFF5F /* OnBoardingViewController.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -61,6 +66,14 @@
 				03CF26032C883A3E0012CD8A /* LoginViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		03C6A1242C9AA5AF00CDCEB2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				03C6A1252C9AA5C600CDCEB2 /* HomeViewController.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		03CF25F32C883A3D0012CD8A = {
@@ -82,6 +95,7 @@
 		03CF25FE2C883A3E0012CD8A /* Bankey */ = {
 			isa = PBXGroup;
 			children = (
+				03C6A1242C9AA5AF00CDCEB2 /* Home */,
 				0398D5BD2C92B5DD00EE24C6 /* Login */,
 				0398D5BC2C92B5D000EE24C6 /* OnBoarding */,
 				03CF26352C8874140012CD8A /* Views */,
@@ -188,8 +202,10 @@
 				03CF26412C8988DD0012CD8A /* BKButtonView.swift in Sources */,
 				03CF263F2C8979D80012CD8A /* BKLoginCredentialsView.swift in Sources */,
 				03CF26392C8874580012CD8A /* BKTitleLabel.swift in Sources */,
+				03C605382C981716003EFF5F /* OnBoardingViewController.swift in Sources */,
 				03CF26042C883A3E0012CD8A /* LoginViewController.swift in Sources */,
 				03CF263B2C88810B0012CD8A /* BKBodyLabel.swift in Sources */,
+				03C6A1262C9AA5C600CDCEB2 /* HomeViewController.swift in Sources */,
 				03FF52D82C94492200AEA4FB /* OnBoardingContainerViewController.swift in Sources */,
 				03CF26002C883A3E0012CD8A /* AppDelegate.swift in Sources */,
 				03CF26022C883A3E0012CD8A /* SceneDelegate.swift in Sources */,
